@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <body>
+<div id="container"> 
+    　　<div id="header">页面头部</div> 
+    　　<div id="page"> 
+    　　　　<div id="left">内容左边部分</div> 
+    　　　　<div id="content">
+        内容中间部分<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            50</div> 
+    　　　　<div id="right">页面右部分</div> 
+    　　</div> 
+    　　<div id="footer">页面页脚</div>
+</div>
+    </body>
+    </html>
+<style>
+html,body { 
+    margin:0;
+    padding:0; 
+    height: 100%; 
+    } 
+    #container { 
+    min-height:100%; 
+    height: auto !important; 
+    height: 100%; /*IE6不识别min-height*/ 
+    position: relative; 
+    } 
+    #header { 
+    background: #ff0; 
+    padding: 10px; 
+    } 
+    #page { 
+    width: 960px; 
+    height: auto;
+    margin: 0 auto; 
+    } 
+    #footer { 
+    position: relative; 
+    bottom: 0; 
+    width: 100%; 
+    height: 60px;/*脚部的高度*/ 
+    background: #6cf; 
+    clear:both; 
+    } 
+    /*=======主体内容部分=======*/ 
+    #left { 
+    width: 220px; 
+    float: left; 
+    margin-right: 20px; 
+    background: lime; 
+    } 
+    #content { 
+    background: orange; 
+    float: left; 
+    width: 480px; 
+    margin-right: 20px; 
+    margin-bottom: 60px;
+    } 
+    #right{ 
+    background: green; 
+    float: right; 
+    width: 220px; 
+    }
+    </style>
+  

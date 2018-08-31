@@ -1,0 +1,29 @@
+ <!DOCTYPE html>
+ <html>
+ <body>
+ <div class="single">
+     单行文字隐藏加省略号
+ </div>
+ <div class="element">
+        多行文字隐藏加省略号???
+ </div>
+ </body>
+ <style>
+ .single{
+     width:5em;
+     text-overflow: ellipsis;
+     overflow: hidden; 
+     white-space: nowrap;
+     }
+ .element{
+     width: 5em; 
+     height: 3em;
+     line-height: 1.5em; 
+     overflow: hidden; 
+     display: -webkit-box; 
+     -webkit-line-clamp: 2; 
+     -webkit-box-orient: vertical; 
+     text-overflow: ellipsis;
+}
+</style>
+</html>

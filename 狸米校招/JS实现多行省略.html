@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="UTF-8">
+                <title></title>
+                <style type="text/css">
+            .wenben{
+                        width: 400px;
+                        height: 100px;
+                        border: 1px solid #000;
+                        overflow: auto;
+                    }
+                </style>
+            </head>
+    <body>
+        <div class="wenben">
+                吉日兮辰良，穆将愉兮上皇；
+                抚长剑兮玉珥[ěr]，璆[qiú]锵鸣兮琳琅；
+                瑶席兮玉瑱[zhèn]，盍[hé]将把兮琼芳；
+                蕙肴蒸兮兰藉，奠桂酒兮椒浆；
+                扬枹[fú]兮拊[fǔ]鼓，疏缓节兮安歌；
+                陈竽瑟兮浩倡；灵偃蹇[jiǎn]111兮姣[jiāo]服，芳菲菲兮满堂；五音纷兮繁会，君欣欣兮乐康。浴兰汤兮沐芳，华采衣兮若英；灵连蜷兮既留，烂昭昭兮未央；謇[jiǎn]将憺[dàn]兮寿宫，与日月兮齐光
+        </div>
+    </body>
+    <script type=text/javascript>
+        var text=document.getElementsByClassName("wenben");
+        for(var i=0;i<text.length;i++){
+            var arr=text[i].innerHTML.split('');
+        while(text[i].offsetHeight<text[i].scrollHeight){               
+                text[i].innerHTML=arr.join('');
+                arr.pop();
+        }
+        text[i].innerHTML+='...';
+        }                         
+    </script>
+</html>

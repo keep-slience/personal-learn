@@ -1,0 +1,118 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>非脚本式下拉菜单</title>
+    <style>
+    .xd_menu {
+          position:relative;
+          background:#fff;
+          color:#666;
+          text-decoration:none;
+          font-size:12px;
+          width:200px;
+          text-align:center;
+          border:1px solid #ccc;
+          height:30px;
+          line-height:25px;
+          z-index: 10;
+          display: block;
+          float: left;
+          margin-left: 2px;
+    }/*设置链接的属性,一定要设置为relative才能使提示层跟着链接走*/
+    .xd_menu:hover {background:#eee;color:rgb(255, 0, 0);}
+    .xd_menu span{display: none; }/*设置正常下的span为隐藏状态*/
+    .xd_menu:hover span{
+          display:block;
+          position:absolute;
+          top:29px;
+          left:-1px;
+          width:auto;
+          background:#eee;
+          color:#000;
+          text-align:left;
+          border-right-width: 1px;
+          border-bottom-width: 1px;
+          border-left-width: 1px;
+          border-right-style: solid;
+          border-bottom-style: solid;
+          border-left-style: solid;
+          border-right-color: #CCCCCC;
+          border-bottom-color: #CCCCCC;
+          border-left-color: #CCCCCC;
+          font-size: 12px;
+          text-decoration: none;
+    }/*设置hover下的span属性为呈现状态,并设置提示层的位置*/
+    table a： {
+          color: #0066CC;
+          color:#0066CC;
+          text-align: center;
+          vertical-align: middle;
+          height: 20;
+          width: 100%;
+          text-decoration: none;
+          font-size: 12px;
+          display: block;
+    }
+    table a:visited {
+          text-decoration: none;
+          color: #009900;
+          width: 100%;
+    }
+    table a:hover {
+          text-decoration: underline;
+          color: #FFFFFF;
+          background-color: #0066CC;
+          text-align: center;
+          width: 100%;
+    }
+    table a:active {
+          text-decoration: none;
+          color: #999999;
+    }
+    table {      width: 100%;}
+    .xd_menu #table{display: none; }
+    .xd_menu:hover #table{
+          display:block;
+          position:absolute;
+          top:25px;
+          left:-1px;
+          width:200px;
+          background:#eee;
+          color:#000;
+          text-align:left;
+          border-right-width: 1px;
+          border-bottom-width: 1px;
+          border-left-width: 1px;
+          border-right-style: solid;
+          border-bottom-style: solid;
+          border-left-style: solid;
+          border-right-color: #CCCCCC;
+          border-bottom-color: #CCCCCC;
+          border-left-color: #CCCCCC;
+          font-size: 12px;
+          text-decoration: none;
+    }
+    </style></head>
+    <body>
+    <a class="xd_menu" href="http://www.baidu.com">一
+    <span>
+    <table border="0" cellpadding="0" cellspacing="0" >
+    <tr><td><a href="http://www.baidu.com">http://www.baidu.com</a></td></tr>
+    <tr><td><a href="http://www.baidu.com">http://www.baidu.com</a></td></tr>
+    <tr><td><a href="http://www.baidu.com">http://www.baidu.com</a></td></tr>
+    </table>
+    </span>
+    </a>
+    <a class="xd_menu" href="http://www.baidu.com">二<span>
+    <table border="0" cellpadding="0" cellspacing="0" >
+    <tr><td><a href="http://www.baidu.com">http://www.baidu.com</a></td></tr>
+    <tr><td><a href="http://www.baidu.com">http://www.baidu.com</a></td></tr>
+    <tr><td><a href="http://www.baidu.com">http://www.baidu.com</a></td></tr></table></span>
+    </a>
+    <a class="xd_menu" href="http://www.tcmt.cn">三<span>
+    <table border="0" cellpadding="0" cellspacing="0" >
+    <tr><td><a href="http://www.baidu.com">http://www.baidu.com</a></td></tr>
+    <tr><td><a href="http://www.baidu.com">http://www.baidu.com</a></td></tr>
+    <tr><td><a href="http://www.baidu.com">http://www.baidu.com</a></td></tr></table></span>
+    </a>
+    </body>
+    </html> 

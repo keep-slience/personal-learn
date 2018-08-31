@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>微信基础库爬取</title>
+    <script src="echarts.common.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="get95.js"></script>
+</head>
+<body>
+    <div id="android" style="width: 1200px;height: 600px;"></div>
+    <p>android基础库前三占比:</p>
+    <p id="max3a1"></p>
+    <p id="max3a2"></p>
+    <p id="max3a3"></p>
+    <p id="max3a"></p>
+    <p id="1.9.9a"></p>
+    <p id="1.9.90a"></p>
+    <p id="get95a"></p>
+    <div id="ios" style="width: 1200px;height: 600px;"></div>
+    <p>iOS基础库前三占比:</p>
+    <p id="max3i1"></p>
+    <p id="max3i2"></p>
+    <p id="max3i3"></p>
+    <p id="max3i"></p>
+    <p id="1.9.9i"></p>
+    <p id="1.9.90i"></p>
+    <p id="get95i"></p>
+    <div id="total" style="width: 1200px;height: 600px;"></div>
+    <p>total基础库前三占比:</p>
+    <p id="max3t1"></p>
+    <p id="max3t2"></p>
+    <p id="max3t3"></p>
+    <p id="max3t"></p>
+    <p id="1.9.9t"></p>
+    <p id="1.9.90t"></p>
+    <p id="get95t"></p>
+
+        <script type="text/javascript">
+        var myChart1 = echarts.init(document.getElementById('android'));
+        var option = {
+            title: {
+                text: 'Android'
+            },
+            tooltip: {},
+            legend: {
+                data:[]
+            },
+            xAxis: {
+                data: []
+            },
+            yAxis: {},
+            series: [{
+                type: 'bar',
+                data: [],
+                itemStyle : { normal: {label : {show: true,position:'top',
+                formatter: function(params) {if (params.value >= 0.1) {return params.value;} else {return '';}},
+                }}}
+            }]
+        };
+
+        $.get('getpublibpercentage.json').done(function (data) {
+            if(typeof data == 'string'){var data=JSON.parse(data);}
+            var json_dataobject=JSON.parse(data.json_data);
+            var sdkVer=new Array();
+            var percentage=new Array();
+            var temp=new Array();
+            var sum=0;
+            var sum90=0; 
+            var index=new Array();
+            var add=0;
+            var total95=0;
+            for (var i=0;i<json_dataobject.android.length;i++){
+                sdkVer[i]=json_dataobject.android[i].sdkVer;
+                percentage[i]=json_dataobject.android[i].percentage;
+                if(percentage[i]>=1){percentage[i]=percentage[i].toFixed(2)}
+                else{percentage[i]=percentage[i].toPrecision(2)};
+                }
+            for (var i=0;i<percentage.length;i++){temp[i]=percentage[i];}
+            temp.sort(function(a,b){return b-a});
+            var temparr=[temp[0],temp[1],temp[2]];
+            for(var i=0;i<temp.length;i++){
+                    if(temparr[0]==percentage[i]){index[0]=i;}
+                    if(temparr[1]==percentage[i]){index[1]=i;}
+                    if(temparr[2]==percentage[i]){index[2]=i;}
+                }
+            add=parseFloat(temparr[0])+parseFloat(temparr[1])+parseFloat(temparr[2]);
+            document.getElementById('max3a1').innerHTML=sdkVer[index[0]]+"版本: "+temparr[0]+"%";
+            document.getElementById('max3a2').innerHTML=sdkVer[index[1]]+"版本: "+temparr[1]+"%";
+            document.getElementById('max3a3').innerHTML=sdkVer[index[2]]+"版本: "+temparr[2]+"%";
+            document.getElementById('max3a').innerHTML="前三基础库总计占比"+add+"%";
+            for(var i=0;i<sdkVer.length;i++){if(sdkVer[i]=="1.9.9"){for(var j=0;j<=i;j++){sum=parseFloat(sum)+parseFloat(percentage[j]);}}}
+            document.getElementById('1.9.9a').innerHTML="大于等于1.9.9版本的用户占比: "+sum+"%";
+            for(var i=0;i<sdkVer.length;i++){if(sdkVer[i]=="1.9.90"){for(var j=0;j<=i;j++){sum90=parseFloat(sum90)+parseFloat(percentage[j]);}}}
+            if(sum90!=0){document.getElementById('1.9.90a').innerHTML="大于等于1.9.90版本的用户占比: "+sum90+"%";}else{document.getElementById('1.9.90a').innerHTML="没有1.9.90版本"}
+            var num=get95(sdkVer,percentage);
+            document.getElementById('get95a').innerHTML="大于等于95%用户的基础库版本分布为："
+            for(var i=0;i<=num;i++){total95=parseFloat(total95)+parseFloat(percentage[i]);document.getElementById('get95a').innerHTML+=sdkVer[i]+", "};            
+            document.getElementById('get95a').innerHTML+="其总占比为"+total95+"%";
+    myChart1.setOption({
+        xAxis: {
+            data: sdkVer
+        },
+        series: [{
+            data:percentage
+        }]
+    });
+});
+        myChart1.setOption(option);
+
+        var myChart2 = echarts.init(document.getElementById('ios'));
+        var option = {
+            title: {
+                text: 'iOS'
+            },
+            tooltip: {},
+            legend: {
+                data:[]
+            },
+            xAxis: {
+                data: []
+            },
+            yAxis: {},
+            series: [{
+                type: 'bar',
+                data: [],
+                itemStyle : { normal: {label : {show: true,position:'top',
+                formatter: function(params) {if (params.value >= 0.1) {return params.value;} else {return '';}},
+                }}}
+            }]
+        };
+
+        $.get('getpublibpercentage.json').done(function (data) {
+            if(typeof data == 'string'){var data=JSON.parse(data);}
+            var json_dataobject=JSON.parse(data.json_data);
+            var sdkVer=new Array();
+            var percentage=new Array();
+            var temp=new Array();
+            var sum=0;
+            var sum90=0; 
+            var index=new Array();
+            var add=0;
+            var total95=0;
+            for (var i=0;i<json_dataobject.iOS.length;i++){
+                sdkVer[i]=json_dataobject.iOS[i].sdkVer;
+                percentage[i]=json_dataobject.iOS[i].percentage;
+                if(percentage[i]>=1){percentage[i]=percentage[i].toFixed(2)}
+                else{percentage[i]=percentage[i].toPrecision(2)}
+            }
+            for (var i=0;i<percentage.length;i++){temp[i]=percentage[i];}
+            temp.sort(function(a,b){return b-a});
+            var temparr=[temp[0],temp[1],temp[2]]; 
+            for(var i=0;i<temp.length;i++){
+                    if(temparr[0]==percentage[i]){index[0]=i;}
+                    if(temparr[1]==percentage[i]){index[1]=i;}
+                    if(temparr[2]==percentage[i]){index[2]=i;}
+                }
+            add=parseFloat(temparr[0])+parseFloat(temparr[1])+parseFloat(temparr[2]);
+            document.getElementById('max3i1').innerHTML=sdkVer[index[0]]+"版本: "+temparr[0]+"%";
+            document.getElementById('max3i2').innerHTML=sdkVer[index[1]]+"版本: "+temparr[1]+"%";
+            document.getElementById('max3i3').innerHTML=sdkVer[index[2]]+"版本: "+temparr[2]+"%";
+            document.getElementById('max3i').innerHTML="前三基础库总计占比"+add+"%";
+            for(var i=0;i<sdkVer.length;i++){if(sdkVer[i]=="1.9.9"){for(var j=0;j<=i;j++){sum=parseFloat(sum)+parseFloat(percentage[j]);}}}
+            document.getElementById('1.9.9i').innerHTML="大于等于1.9.9版本的用户占比: "+sum+"%";
+            for(var i=0;i<sdkVer.length;i++){if(sdkVer[i]=="1.9.90"){for(var j=0;j<=i;j++){sum90=parseFloat(sum90)+parseFloat(percentage[j]);}}}
+            if(sum90!=0){document.getElementById('1.9.90i').innerHTML="大于等于1.9.90版本的用户占比: "+sum90+"%";}else{document.getElementById('1.9.90i').innerHTML="没有1.9.90版本"}
+            var num=get95(sdkVer,percentage);
+            document.getElementById('get95i').innerHTML="大于等于95%用户的基础库版本分布为："
+            for(var i=0;i<=num;i++){total95=parseFloat(total95)+parseFloat(percentage[i]);document.getElementById('get95i').innerHTML+=sdkVer[i]+", "};            
+            document.getElementById('get95i').innerHTML+="其总占比为"+total95+"%";
+    myChart2.setOption({
+        xAxis: {
+            data: sdkVer
+        },
+        series: [{
+            data:percentage
+        }]
+    });
+});
+        myChart2.setOption(option);
+
+        var myChart3 = echarts.init(document.getElementById('total'));
+        var option = {
+            title: {
+                text: 'total'
+            },
+            tooltip: {},
+            legend: {
+                data:[]
+            },
+            xAxis: {
+                data: []
+            },
+            yAxis: {},
+            series: [{
+                type: 'bar',
+                data: [],
+                itemStyle : { normal: {label : {show: true,position:'top',
+                formatter: function(params) {if (params.value >= 0.1) {return params.value;} else {return '';}},
+                }}}
+            }]
+        };
+
+        $.get('getpublibpercentage.json').done(function (data) {
+            if(typeof data == 'string'){var data=JSON.parse(data);}
+            var json_dataobject=JSON.parse(data.json_data);
+            var sdkVer=new Array();
+            var percentage=new Array();
+            var temp=new Array();
+            var sum=0;
+            var sum90=0; 
+            var index=new Array();
+            var add=0;
+            var total95=0;
+            for (var i=0;i<json_dataobject.total.length;i++){
+                sdkVer[i]=json_dataobject.total[i].sdkVer;
+                percentage[i]=json_dataobject.total[i].percentage;
+                if(percentage[i]>=1){percentage[i]=percentage[i].toFixed(2)}
+                else{percentage[i]=percentage[i].toPrecision(2)}
+            }
+            for (var i=0;i<percentage.length;i++){temp[i]=percentage[i];}  
+            temp.sort(function(a,b){return b-a});
+            var temparr=[temp[0],temp[1],temp[2]]; 
+            for(var i=0;i<temp.length;i++){
+                    if(temparr[0]==percentage[i]){index[0]=i;}
+                    if(temparr[1]==percentage[i]){index[1]=i;}
+                    if(temparr[2]==percentage[i]){index[2]=i;}
+                }
+            add=parseFloat(temparr[0])+parseFloat(temparr[1])+parseFloat(temparr[2]);
+            document.getElementById('max3t1').innerHTML=sdkVer[index[0]]+"版本: "+temparr[0]+"%";
+            document.getElementById('max3t2').innerHTML=sdkVer[index[1]]+"版本: "+temparr[1]+"%";            
+            document.getElementById('max3t3').innerHTML=sdkVer[index[2]]+"版本: "+temparr[2]+"%";
+            document.getElementById('max3t').innerHTML="前三基础库总计占比"+add+"%";
+            for(var i=0;i<sdkVer.length;i++){if(sdkVer[i]=="1.9.9"){for(var j=0;j<=i;j++){sum=parseFloat(sum)+parseFloat(percentage[j]);}}}
+            document.getElementById('1.9.9t').innerHTML="大于等于1.9.9版本的用户占比: "+sum+"%";
+            for(var i=0;i<sdkVer.length;i++){if(sdkVer[i]=="1.9.90"){for(var j=0;j<=i;j++){sum90=parseFloat(sum90)+parseFloat(percentage[j]);}}}
+            if(sum90!=0){document.getElementById('1.9.90t').innerHTML="大于等于1.9.90版本的用户占比: "+sum90+"%";}else{document.getElementById('1.9.90t').innerHTML="没有1.9.90版本"}
+            var num=get95(sdkVer,percentage);
+            document.getElementById('get95t').innerHTML="大于等于95%用户的基础库版本分布为："
+            for(var i=0;i<=num;i++){total95=parseFloat(total95)+parseFloat(percentage[i]);document.getElementById('get95t').innerHTML+=sdkVer[i]+", "};            
+            document.getElementById('get95t').innerHTML+="其总占比为"+total95+"%";
+    myChart3.setOption({
+        xAxis: {
+            data: sdkVer
+        },
+        series: [{
+            data:percentage
+        }]
+    });
+});
+        myChart3.setOption(option);
+        </script>
+</body>
+</html>

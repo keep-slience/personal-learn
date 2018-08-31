@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>test</title>
+    <script src="https://cdn.bootcss.com/phaser/2.6.2/phaser.min.js"></script>
+    <script src="assets/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        var game = new Phaser.Game('100','100',Phaser.CANVAS,'game')
+        game.states = {}
+        game.states.state1 = {
+            preload:function(){
+                game.load.image('bg','assets/bg.png')
+                game.load.image('scorebg','assets/scorebg.png')
+                game.load.image('button','assets/button@2x.png')
+                game.load.image('loadbg','assets/loadbg.png')
+                game.load.image('staron','assets/staron.png')
+                game.load.image('staroff','assets/staroff.png')
+                game.load.image('loadfinal','assets/loadfinal.png')
+                game.load.image('first','assets/first.png')
+                game.load.image('second','assets/second.png')
+                game.load.image('third','assets/third.png')
+                game.load.json('test','test.json')
+            },
+            create:function(){
+                var json = game.cache.getJSON('test')
+                bg = game.add.sprite(0,0,'bg')
+                bg.scale.setTo('100','100')//精灵放大缩小
+                scorebg = game.add.sprite(game.world.centerX,game.world.centerY,'scorebg')
+                scorebg.anchor.setTo(0.5,0.5)
+                title = game.add.text(game.world.centerX,0.28*game.world._height,'',{fontSize:'44px',fill:'#000',fontWeight:'normal'})
+                title.anchor.setTo(0.5,0)
+                if(json.num<18){
+                    calculate = "一"
+                }
+                else if(json.num>=18&&json.num<24){
+                    calculate = "二"
+                }
+                else{
+                    calculate = "三"
+                } 
+                title.setText('本次做对'+json.num+'题  达到'+calculate+'星水平')
+                button = game.add.button(game.world.centerX,0.65*game.world._height,'button',start1,this,0)
+                button.anchor.setTo(0.5,0)
+                start = game.add.text(game.world.centerX,0.667*game.world._height,'开始做题',{
+                    fontSize:'36px',
+                    fill:'#fff',
+                    fontWeight:'bold'})
+                start.anchor.setTo(0.5,0)
+                loadbg = game.add.sprite(game.world.centerX,0.5*game.world._height,'loadbg')
+                loadbg.anchor.setTo(0.5,0)
+                loadfinal = game.add.sprite(game.world.centerX-loadbg.width/2,0.5*game.world._height,'loadfinal')
+                g11 = game.add.sprite(0.35*game.world._width,0.43*game.world._height,'staroff')
+                g21 = game.add.sprite(0.55*game.world._width,0.43*game.world._height,'staroff')
+                g22 = game.add.sprite(0.59*game.world._width,0.43*game.world._height,'staroff')
+                g31 = game.add.sprite(0.68*game.world._width,0.43*game.world._height,'staroff')
+                g32 = game.add.sprite(0.71*game.world._width,0.43*game.world._height,'staroff')
+                g33 = game.add.sprite(0.74*game.world._width,0.43*game.world._height,'staroff')
+                //game.add.sprite(0.25*game.world._width,0.48*game.world._height,'first')
+                //game.add.sprite(0.55*game.world._width,0.47*game.world._height,'second')
+                //game.add.sprite(0.66*game.world._width,0.465*game.world._height,'third')
+                var percentage = json.num/30*loadbg.width
+                for(let i=0;i<1;i=i+0.1){                                             
+                        setTimeout(function() {
+                        var loading = new Phaser.Rectangle(0,0,percentage*i,loadbg.height)
+                        if(percentage*i<18/30*loadbg.width){
+                            g11.loadTexture('staron')
+                        }else if(percentage*i<24/30*loadbg.width){
+                            g11.loadTexture('staron')
+                            g21.loadTexture('staron')
+                            g22.loadTexture('staron')
+                        }else{
+                            g11.loadTexture('staron')
+                            g21.loadTexture('staron')
+                            g22.loadTexture('staron')
+                            g31.loadTexture('staron')
+                            g32.loadTexture('staron')
+                            g33.loadTexture('staron') 
+                        }
+                        loadfinal.crop(loading)  
+                        loadbg.visible = true                    
+                    }, 500*i)                  
+                }//进度条，用定时器不断遮罩实现
+            },
+            
+        },
+        game.states.state2 = {
+            preload:function(){
+                //game.load.image('bg','assets/bg.png')
+                game.load.image('scorebg','assets/scorebg.png')
+                game.load.image('button','assets/button@2x.png')
+                game.load.image('loadbg','assets/loadbg.png')
+                game.load.image('staron','assets/staron.png')
+                game.load.image('staroff','assets/staroff.png')
+                game.load.image('loadfinal','assets/loadfinal.png')
+                game.load.image('first','assets/first.png')
+                game.load.image('second','assets/second.png')
+                game.load.image('third','assets/third.png')
+                game.load.json('test','test.json')
+            },
+            create:function(){
+                var json = game.cache.getJSON('test')
+                //bg = game.add.sprite(0,0,'bg')
+                //bg.scale.setTo('100','100')
+                game.stage.backgroundColor='#ef716a'
+                scorebg = game.add.sprite(game.world.centerX,game.world.centerY,'scorebg')
+                scorebg.anchor.setTo(0.5,0.5)
+                title = game.add.text(game.world.centerX,0.28*game.world._height,'',{fontSize:'44px',fill:'#000',fontWeight:'normal'})
+                title.anchor.setTo(0.5,0)
+                if(json.num<18){
+                    calculate = "一"
+                }
+                else if(json.num>=18&&json.num<24){
+                    calculate = "二"
+                }
+                else{
+                    calculate = "三"
+                } 
+                title.setText('本次做对'+json.num+'题  达到'+calculate+'星水平')
+                button = game.add.button(game.world.centerX,0.65*game.world._height,'button',start2,this,0)
+                button.anchor.setTo(0.5,0)
+                start = game.add.text(game.world.centerX,0.667*game.world._height,'开始做题',{
+                    fontSize:'36px',
+                    fill:'#fff',
+                    fontWeight:'bold'})
+                start.anchor.setTo(0.5,0)
+                loadbg = game.add.sprite(game.world.centerX,0.5*game.world._height,'loadbg')
+                loadbg.anchor.setTo(0.5,0)
+                loadfinal = game.add.sprite(game.world.centerX-loadbg.width/2,0.5*game.world._height,'loadfinal')
+                g1=game.add.group()
+                g2=game.add.group()
+                g3=game.add.group()
+                g1.create(0.35*game.world._width,0.43*game.world._height,'staroff')
+                g2.create(0.55*game.world._width,0.43*game.world._height,'staroff')
+                g2.create(0.59*game.world._width,0.43*game.world._height,'staroff')
+                g3.create(0.68*game.world._width,0.43*game.world._height,'staroff')
+                g3.create(0.71*game.world._width,0.43*game.world._height,'staroff')
+                g3.create(0.74*game.world._width,0.43*game.world._height,'staroff')
+                //game.add.sprite(0.25*game.world._width,0.48*game.world._height,'first')
+                //game.add.sprite(0.55*game.world._width,0.47*game.world._height,'second')
+                //game.add.sprite(0.66*game.world._width,0.465*game.world._height,'third')
+                var percentage = json.num/30*loadbg.width
+                for(let i=0;i<1;i=i+0.1){                                             
+                        setTimeout(function() {
+                        var loading = new Phaser.Rectangle(0,0,percentage*i,loadbg.height)
+                        if(percentage*i<18/30*loadbg.width){
+                            g1.forEach(element => {
+                                for(let i=0;i<g1.children.length;i++){
+                                    g1.children[0].loadTexture('staron')
+                                }
+                            });  
+                        }
+                        else if(percentage*i<24/30*loadbg.width){
+                            g2.forEach(element => {
+                                for(let i=0;i<g2.children.length;i++){
+                                    g2.children[i].loadTexture('staron')
+                                }
+                            });
+                        }
+                        else{
+                             g3.forEach(element => {
+                                for(let i=0;i<g3.children.length;i++){
+                                    g3.children[i].loadTexture('staron')
+                                }
+                             });
+                        }     
+                        loadfinal.crop(loading)  
+                        loadbg.visible = true                    
+                    }, (500*i)^2)}
+            }           
+        }
+        
+        function start1(){
+            game.state.start('state2')
+        }
+        function start2(){
+            game.state.start('state1')
+        }      
+        game.state.add('state1',game.states.state1)
+        game.state.add('state2',game.states.state2)
+        game.state.start('state1')
+    </script>
+</head>
+<style>
+    html{
+        overflow:hidden;
+    }
+    body {
+        text-align:center;
+        margin:0 auto;
+        padding: 0;
+        width: 100%;
+        height:100%;
+        scrolling:"no";
+        overflow-x:hidden;
+        overflow-y:hidden;
+    }
+    .main{
+        z-index: 10;
+        position: absolute;
+        display: none;
+        height: 100%;
+        width: 100%;
+    }
+    .game {
+        z-index: 0;
+        margin: auto;
+        display:none;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+    }
+</style>
+<body>
+    <div class="game"></div>
+</body>
+</html>

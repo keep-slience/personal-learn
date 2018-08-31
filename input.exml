@@ -1,0 +1,39 @@
+<e:Skin xmlns:e="http://ns.egret.com/eui" 
+ states="normal,selected,fraction_int,franction_num,franction_deno,franction_normal" width="140" height="90">
+    <e:Rect percentWidth="100" percentHeight="100" strokeWeight="5" 
+            fillColor="0xf5f5f5" strokeColor="0x333333" 
+            strokeColor.selected="0x000eff" fillColor.selected="0x3597ff"
+            fillColor.fraction_int="0x58bafc" strokeColor.fraction_int="0x0055ff"   
+            fillColor.franction_deno="0x58bafc" strokeColor.franction_deno="0x0055ff"
+            fillColor.franction_num="0x58bafc" strokeColor.franction_num="0x0055ff"
+            fillColor.franction_normal="0xffffff" strokeColor.franction_normal="0x333333" 
+            />
+    <e:Label percentWidth="100" percentHeight="100" textAlign="center" verticalAlign="middle"             includeIn="selected"/>
+
+    <e:Rect percentWidth="50" percentHeight="50" verticalCenter="0" 
+    strokeWeight="3" 
+    includeIn="fraction_int,franction_num,franction_deno,franction_normal"  strokeColor="0x000000" fillColor="0x777777"
+    strokeColor.fraction_int="0x004ef9" fillColor.fraction_int="0x488dd6"
+     />
+    <e:Label percentWidth="50" 
+    percentHeight="50" x="0" 
+    verticalCenter="0"
+     textAlign="center" 
+     verticalAlign="middle" 
+     includeIn="fraction_int,franction_num,franction_deno,franction_normal" verticalCenter.fraction_int="0" x.fraction_int="0"/>
+    
+    <e:Rect percentWidth="50" percentHeight="50" 
+    strokeWeight="3" 
+    fillColor="0x777777" strokeColor="0x000000"     
+    strokeColor.franction_deno="0x004ef9" fillColor.franction_deno="0x488dd6"   
+    
+    includeIn="fraction_int,franction_num,franction_deno,franction_normal" top="0" right="0"/>
+    <e:Label percentWidth="50" percentHeight="50" x="150" textAlign="center" verticalAlign="middle" includeIn="fraction_int,franction_num,franction_deno,franction_normal"/>
+    
+    <e:Rect percentWidth="50" percentHeight="50" x="150" verticalCenter="45" 
+    strokeWeight="3"
+    fillColor="0x777777" strokeColor="0x000000" 
+    fillColor.franction_num="0x488dd6" strokeColor.franction_num="0x004ef9" 
+    includeIn="fraction_int,franction_num,franction_deno,franction_normal"/>
+    <e:Label percentWidth="50" percentHeight="50" x="150" y="150" verticalCenter="45" textAlign="center" verticalAlign="middle" includeIn="fraction_int,franction_num,franction_deno,franction_normal"/>
+</e:Skin>
